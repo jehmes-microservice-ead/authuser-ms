@@ -45,11 +45,11 @@ public class UserModel extends RepresentationModel<UserModel> implements Seriali
     private String cpf;
     @Column
     private String imageUrl;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     @Column(nullable = false)
     @CreationTimestamp
     private LocalDateTime creationDate;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     @Column(nullable = false)
     @UpdateTimestamp
     private LocalDateTime lastUpdateDate;
