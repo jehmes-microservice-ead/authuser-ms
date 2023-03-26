@@ -8,6 +8,7 @@ import lombok.Data;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.UUID;
 
 
 @Data
@@ -21,6 +22,7 @@ public class UserDto {
         public static interface ImagePut {}
 
     }
+    private UUID userId;
 
     @NotBlank(groups = UserView.RegistrationPost.class)
     @Size(min = 4, max = 50, groups = UserView.RegistrationPost.class)
