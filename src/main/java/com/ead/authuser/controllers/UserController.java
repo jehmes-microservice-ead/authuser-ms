@@ -69,7 +69,7 @@ public class UserController {
                                              @RequestBody @Validated(UserDto.UserView.UserPut.class)
                                              @JsonView(UserDto.UserView.UserPut.class)
                                              UserDto userDto) {
-        log.debug("POST updateUser userDto received {} ", userDto.toString());
+        log.debug("POST updateUser userDto received {} ", userDto.getUserId());
         Optional<UserModel> userModelOptional = userService.findById(userId);
         if (userModelOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
@@ -79,8 +79,8 @@ public class UserController {
         userModel.setPhoneNumber(userDto.getPhoneNumber());
         userModel.setFullName(userDto.getFullName());
         userService.save(userModel);
-        log.debug("PUT updateUser userModel saved {} ", userModel.toString());
-        log.info("User updated successfully {} ", userModel.getId());
+        log.debug("PUT updateUser userId saved {} ", userModel.getId());
+        log.info("User updated successfully userId {} ", userModel.getId());
         return ResponseEntity.status(HttpStatus.OK).body(userModelOptional);
     }
 
@@ -115,6 +115,8 @@ public class UserController {
         var userModel = userModelOptional.get();
         userModel.setImageUrl(userDto.getImageUrl());
         userService.save(userModel);
+        log.debug("PUT updateImage userId saved {} ", userModel.getId());
+        log.info("Image updated successfully userId {} ", userModel.getId());
         return ResponseEntity.status(HttpStatus.OK).body(userModel);
     }
 }

@@ -41,8 +41,8 @@ public class AuthenticationController {
         userModel.setUserStatus(UserStatus.ACTIVE);
         userModel.setUserType(UserType.STUDENT);
         userService.save(userModel);
-        log.debug("POST registerUser userModel saved {} ", userModel.toString());
-        log.info("User saved successfully {} ", userModel.getId());
+        log.debug("POST registerUser userID saved {} ", userModel.getId());
+        log.info("User saved successfully userID {} ", userModel.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(userModel);
     }
 
