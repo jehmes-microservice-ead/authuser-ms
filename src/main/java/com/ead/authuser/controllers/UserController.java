@@ -33,7 +33,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<Page<UserModel>> getAllUsers(SpecificationTemplate.UserSpec spec,
-                                                       @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable,
+                                                       @PageableDefault(page = 0, size = 10, sort = "userId", direction = Sort.Direction.ASC) Pageable pageable,
                                                        @RequestParam(required = false) UUID courseId) {
         Page<UserModel> userModelPage;
         if (courseId != null) {
@@ -43,7 +43,7 @@ public class UserController {
         }
         if (!userModelPage.isEmpty()) {
             for (UserModel user : userModelPage.toList()) {
-                user.add(linkTo(methodOn(UserController.class).getOneUser(user.getId())).withSelfRel());
+                user.add(linkTo(methodOn(UserController.class).getOneUser(user.getUserId())).withSelfRel());
             }
         }
         return ResponseEntity.status(HttpStatus.OK).body(userModelPage);
@@ -86,8 +86,8 @@ public class UserController {
         userModel.setPhoneNumber(userDto.getPhoneNumber());
         userModel.setFullName(userDto.getFullName());
         userService.save(userModel);
-        log.debug("PUT updateUser userId saved {} ", userModel.getId());
-        log.info("User updated successfully userId {} ", userModel.getId());
+        log.debug("PUT updateUser userId saved {} ", userModel.getUserId());
+        log.info("User updated successfully userId {} ", userModel.getUserId());
         return ResponseEntity.status(HttpStatus.OK).body(userModelOptional);
     }
 
@@ -122,8 +122,8 @@ public class UserController {
         var userModel = userModelOptional.get();
         userModel.setImageUrl(userDto.getImageUrl());
         userService.save(userModel);
-        log.debug("PUT updateImage userId saved {} ", userModel.getId());
-        log.info("Image updated successfully userId {} ", userModel.getId());
+        log.debug("PUT updateImage userId saved {} ", userModel.getUserId());
+        log.info("Image updated successfully userId {} ", userModel.getUserId());
         return ResponseEntity.status(HttpStatus.OK).body(userModel);
     }
 }
