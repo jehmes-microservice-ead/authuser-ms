@@ -22,6 +22,8 @@ spring:
   output:
    ansi:
      enabled: always
+  rabbitmq:
+    addresses: amqps://zjxwabag:SKvK6q_BEFGfuOxIe1F2AUs33sHFBUaW@armadillo.rmq.cloudamqp.com/zjxwabag
 
 logging:
   level:
