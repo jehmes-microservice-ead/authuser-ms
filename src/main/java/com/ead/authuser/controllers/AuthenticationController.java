@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @PostMapping("/signup")
     public ResponseEntity<Object> registerUser(@RequestBody @Validated(UserDto.UserView.RegistrationPost.class)
@@ -40,7 +40,7 @@ public class AuthenticationController {
         BeanUtils.copyProperties(userDto, userModel);
         userModel.setUserStatus(UserStatus.ACTIVE);
         userModel.setUserType(UserType.STUDENT);
-        userService.save(userModel);
+        userService.saveUser(userModel);
         log.debug("POST registerUser userID saved {} ", userModel.getUserId());
         log.info("User saved successfully userID {} ", userModel.getUserId());
         return ResponseEntity.status(HttpStatus.CREATED).body(userModel);
