@@ -11,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Optional;
 
 @Log4j2
@@ -33,7 +31,7 @@ public class InstructorController {
         }else {
             var userModel = userModelOptional.get();
             userModel.setUserType(UserType.INSTRUCTOR);
-            userService.save(userModel);
+            userService.updateUser(userModel);
             return ResponseEntity.status(HttpStatus.OK).body(userModel);
         }
     }
