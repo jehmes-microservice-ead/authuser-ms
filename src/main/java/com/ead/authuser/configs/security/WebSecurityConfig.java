@@ -1,5 +1,6 @@
 package com.ead.authuser.configs.security;
 
+import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
@@ -66,6 +67,9 @@ public class WebSecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
+//                .shouldFilterAllDispatcherTypes(true)
+                //observação no final do codigo
+                .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                 .requestMatchers(AUTH_WHITELIST).permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -84,3 +88,8 @@ public class WebSecurityConfig {
         return authConfig.getAuthenticationManager();
     }
 }
+
+//Sobre o dispatcherTypeMatchers: quando havia um campo faltando na request, retornava erro 401 no endpoint de signup que é de criação de usuario
+//com esse dispatcherTypeMatchers, corrige isso. A falta de um campo gera um dispatcher.ERROR e depois da att
+//do spring security, esses ERROS precisam passar pela segurança dos filtros, retornando o erro 401. Antes
+//em caso de erro, não passava pelos filtros de seguranla do dispatcher.
